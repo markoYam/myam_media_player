@@ -1,0 +1,47 @@
+group = "com.marcoyam.media_tools"
+version = "1.0"
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.7.3")
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: "com.android.library"
+
+android {
+    namespace = "com.marcoyam.media_tools"
+    compileSdk = 35
+
+    defaultConfig {
+        minSdk = 21
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    // LAME (C) + puente JNI, compartido con iOS en ../src.
+    externalNativeBuild {
+        cmake {
+            path = "../src/CMakeLists.txt"
+        }
+    }
+}
+
+dependencies {
+    // Descargas que siguen con la app cerrada (BackgroundTransfer / ChunkWorker).
+    implementation "androidx.work:work-runtime:2.9.1"
+}

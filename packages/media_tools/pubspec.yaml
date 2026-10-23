@@ -1,0 +1,21 @@
+name: media_tools
+description: "Une video y audio en MP4 sin recodificar y convierte audio a MP3 con LAME. Android (MediaMuxer/MediaCodec) e iOS (AVFoundation)."
+version: 1.0.0
+publish_to: 'none'
+
+environment:
+  sdk: ^3.6.0
+  flutter: '>=3.27.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.marcoyam.media_tools
+        pluginClass: MediaToolsPlugin
+      ios:
+        pluginClass: MediaToolsPlugin

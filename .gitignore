@@ -11,3 +11,7 @@ android/.gradle/
 android/local.properties
 *.ipa
 *.apk
+
+# Releases publicados por GitHub Pages (docs/releases)
+!docs/releases/**/*.apk
+!docs/releases/**/*.ipa

@@ -15,3 +15,7 @@ android/local.properties
 # Releases publicados por GitHub Pages (docs/releases)
 !docs/releases/**/*.apk
 !docs/releases/**/*.ipa
+
+# Caché de compilación nativa de los plugins
+.cxx/
+**/android/build/

@@ -136,6 +136,19 @@ docs/DISTRIBUCION.md            publicar el .apk y el .ipa en tu sitio
 - **Cuando YouTube cambia**, la búsqueda o la reproducción fallan con "No se pudo leer la información de YouTube".
   Se arregla actualizando: `flutter pub upgrade youtube_explode_dart`.
 
+## Distribución en iPhone y perfiles `.mobileconfig`
+
+- [docs/DISTRIBUCION.md](docs/DISTRIBUCION.md): publicar el `.apk` y el `.ipa` (Ad Hoc) en tu sitio.
+- [docs/CADUCIDAD_Y_DISTRIBUCION.md](docs/CADUCIDAD_Y_DISTRIBUCION.md): qué caduca (perfil, aprovisionamiento,
+  certificados, firma de la app), opciones gratuitas y de pago, qué funciona en México y cómo renovar.
+- [docs/PERFILES_IOS.md](docs/PERFILES_IOS.md): `tool/perfiles_ios`, que genera, valida, publica y revisa el perfil de
+  acceso directo para `https://markoyam.github.io/video-downloader/`. Un perfil **no instala la app**.
+
+```bash
+python3 tool/perfiles_ios publicar     # sitio en build/perfiles_ios/sitio/
+python3 -m unittest discover -s tool/perfiles_ios/tests -t tool/perfiles_ios/tests
+```
+
 ## Pruebas
 
 ```bash

@@ -27,6 +27,12 @@
 
 ## iPhone: el `.ipa` con distribución Ad Hoc
 
+> **Antes de empezar:** el proyecto todavía usa el bundle id `com.example.videoDownloader`, y Apple no permite
+> registrar `com.example`. Cámbialo en Xcode a `com.marcoyam.videoDownloader`, el que usa `manifest.plist`, y la
+> extensión a `com.marcoyam.videoDownloader.ShareExtension`. `python3 tool/perfiles_ios proyecto` avisa mientras falte.
+> Qué caduca, qué cuesta cada opción y el acceso directo gratuito (`.mobileconfig`) están en
+> [CADUCIDAD_Y_DISTRIBUCION.md](CADUCIDAD_Y_DISTRIBUCION.md) y [PERFILES_IOS.md](PERFILES_IOS.md).
+
 Apple no deja instalar apps desde una página web a cualquiera. Lo que sí permite, sin App Store, es la
 **distribución Ad Hoc**: un `.ipa` firmado para una lista de iPhones registrados.
 
@@ -51,8 +57,8 @@ cada UDID con un nombre.
 
 ### 2. Crear el identificador y el perfil
 
-1. **Identifiers → +** → App IDs → App → Bundle ID explícito `com.marcoyam.videoDownloader` (el que generó
-   `flutter create --org com.marcoyam`; confírmalo en Xcode, pestaña *General*). No hace falta activar capacidades.
+1. **Identifiers → +** → App IDs → App → Bundle ID explícito `com.marcoyam.videoDownloader` (el que pusiste en Xcode, pestaña
+   *General*; `python3 tool/perfiles_ios proyecto` muestra el actual). No hace falta activar capacidades.
 2. **Profiles → +** → **Ad Hoc** → elige ese App ID, tu certificado de distribución y **todos** los dispositivos.
    Ponle nombre, por ejemplo `Video Downloader Ad Hoc`.
 

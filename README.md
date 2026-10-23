@@ -142,10 +142,10 @@ docs/DISTRIBUCION.md            publicar el .apk y el .ipa en tu sitio
 - [docs/CADUCIDAD_Y_DISTRIBUCION.md](docs/CADUCIDAD_Y_DISTRIBUCION.md): qué caduca (perfil, aprovisionamiento,
   certificados, firma de la app), opciones gratuitas y de pago, qué funciona en México y cómo renovar.
 - [docs/PERFILES_IOS.md](docs/PERFILES_IOS.md): `tool/perfiles_ios`, que genera, valida, publica y revisa el perfil de
-  acceso directo para `https://markoyam.github.io/video-downloader/`. Un perfil **no instala la app**.
+  acceso directo de `https://markoyam.github.io/myam_media_player/` (página en `docs/perfiles/`). Un perfil **no instala la app**.
 
 ```bash
-python3 tool/perfiles_ios publicar     # sitio en build/perfiles_ios/sitio/
+python3 tool/perfiles_ios publicar     # página en docs/perfiles/ (se publica con git push)
 python3 -m unittest discover -s tool/perfiles_ios/tests -t tool/perfiles_ios/tests
 ```
 

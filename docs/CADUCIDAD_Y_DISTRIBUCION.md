@@ -37,17 +37,16 @@ duración de la app la decide su firma, que siempre caduca y no se puede saltar 
 - **Lo más cercano a "bajar e instalar desde Safari":** Ad Hoc, que cuesta 99 USD al año.
 - **El perfil `.mobileconfig`:** sí es gratis, y sirve para dar a la gente un acceso directo a tu página de descargas.
 
-### Antes de instalar en un iPhone real: el bundle id
+### Bundle id y lo que hay en `docs/releases/ios/`
 
-El proyecto usa **`com.example.videoDownloader`** (lo dejó `flutter create`). Apple no permite registrar el prefijo
-`com.example`, así que Xcode no podrá firmar la app para un iPhone real, ni siquiera con la cuenta gratuita. Cámbialo una
-vez en Xcode:
-
-1. Target **Runner** → *General* → *Bundle Identifier*: `com.marcoyam.videoDownloader`.
-2. Target **ShareExtension**: `com.marcoyam.videoDownloader.ShareExtension`. Debe empezar con el de Runner.
-
-`python3 tool/perfiles_ios proyecto` avisa mientras siga con `com.example`. El `docs/manifest.plist` ya usa
-`com.marcoyam.videoDownloader`.
+- La app ya usa **`com.marcoyam.videoDownloader`** con tu equipo `QHAPLM7S2S`. La extensión de Compartir pasó a
+  `com.marcoyam.videoDownloader.ShareExtension`, con el mismo equipo, y `releases/ios/manifest.plist` al mismo id.
+- El **`video-downloader.ipa` publicado está sin firmar y se compiló con el id viejo** (`com.example...`).
+  - Sirve para AltStore o SideStore, que lo firman con el Apple ID de cada quien.
+  - El botón **"Instalar en iPhone"** (`itms-services`) no puede instalarlo: eso requiere un `.ipa` Ad Hoc firmado,
+    con la membresía de 99 USD.
+- Recompílalo con el id nuevo (ver `docs/releases/ios/README.md`). `python3 tool/perfiles_ios proyecto` avisa
+  mientras no coincida.
 
 ## 3. Cómo renovar
 
@@ -62,8 +61,8 @@ No necesita renovarse si no tiene caducidad. Para cambiarlo:
    python3 tool/perfiles_ios publicar
    python3 -m unittest discover -s tool/perfiles_ios/tests -t tool/perfiles_ios/tests
    ```
-3. Copia el sitio a `github_page_marco/video-downloader/`, haz push y corre
-   `python3 tool/perfiles_ios verificar https://markoyam.github.io/video-downloader/`.
+3. Haz commit y push de `docs/perfiles/` y corre
+   `python3 tool/perfiles_ios verificar https://markoyam.github.io/myam_media_player/perfiles/`.
 4. Si lo firmaste y el certificado está por vencer, vuelve a publicar con el certificado nuevo. Los perfiles ya
    instalados no se tocan; la firma se revisa al instalar.
 

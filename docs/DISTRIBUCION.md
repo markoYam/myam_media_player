@@ -27,10 +27,9 @@
 
 ## iPhone: el `.ipa` con distribución Ad Hoc
 
-> **Antes de empezar:** el proyecto todavía usa el bundle id `com.example.videoDownloader`, y Apple no permite
-> registrar `com.example`. Cámbialo en Xcode a `com.marcoyam.videoDownloader`, el que usa `manifest.plist`, y la
-> extensión a `com.marcoyam.videoDownloader.ShareExtension`. `python3 tool/perfiles_ios proyecto` avisa mientras falte.
-> Qué caduca, qué cuesta cada opción y el acceso directo gratuito (`.mobileconfig`) están en
+> El proyecto usa el bundle id `com.marcoyam.videoDownloader` (la extensión: `com.marcoyam.videoDownloader.ShareExtension`);
+> `python3 tool/perfiles_ios proyecto` avisa si el `manifest.plist` o el `.ipa` publicados no coinciden. Qué caduca,
+> qué cuesta cada opción y el acceso directo gratuito (`.mobileconfig`) están en
 > [CADUCIDAD_Y_DISTRIBUCION.md](CADUCIDAD_Y_DISTRIBUCION.md) y [PERFILES_IOS.md](PERFILES_IOS.md).
 
 Apple no deja instalar apps desde una página web a cualquiera. Lo que sí permite, sin App Store, es la

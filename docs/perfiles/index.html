@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Downloader · Descargas</title>
+<meta name="description" content="Acceso directo de Video Downloader para iPhone y cómo instalar la app.">
+<meta name="color-scheme" content="dark light">
+<link rel="apple-touch-icon" href="icono.png">
+<style>
+/* Mismos colores que la página principal (docs/index.html). */
+:root{--bg:#0F0A12;--surface:#1D1524;--surface-2:#17101C;--text:#F8F1F5;--muted:#B9AAC2;--primary:#E11D48;
+--on-primary:#FFFFFF;--accent:#7DB3FA;--warn:#FFD479;--border:#33283D;--radius:20px}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#FFF1F2;--surface:#FFFFFF;--surface-2:#FFE4E8;
+--text:#4C0519;--muted:#5B4A55;--primary:#E11D48;--on-primary:#FFFFFF;--accent:#1D4ED8;--warn:#7A4A00;--border:#FECDD3}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Poppins,-apple-system,BlinkMacSystemFont,"Segoe UI",
+Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px 16px 48px}
+.volver{display:inline-flex;align-items:center;min-height:44px;color:var(--muted);text-decoration:none;font-weight:600}
+header{display:flex;gap:16px;align-items:center;margin:8px 0 24px}
+header img{width:72px;height:72px;border-radius:18px;flex:none}
+h1{font-size:28px;line-height:1.15;margin:0;font-weight:800;letter-spacing:-.01em}
+h2{font-size:21px;margin:32px 0 12px;font-weight:800}
+h3{font-size:17px;margin:0 0 6px}
+p{margin:0 0 12px;overflow-wrap:anywhere}
+.muted{color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px;padding:0;list-style:none}
+.chips li{background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:4px 12px;font-size:14px;
+color:var(--muted)}
+.chips li.warn{color:var(--warn)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:999px;
+background:var(--primary);color:var(--on-primary);font-weight:700;text-decoration:none;
+box-shadow:0 10px 30px -12px var(--primary)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+a{color:var(--accent)}
+ol,ul{padding-left:22px;margin:0 0 12px}
+li{margin:4px 0;overflow-wrap:anywhere}
+.tabla{width:100%;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:680px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--border);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,monospace}
+.nowrap{white-space:nowrap}
+footer{margin-top:40px;color:var(--muted);font-size:14px}
+@media (max-width:420px){h1{font-size:24px}header img{width:60px;height:60px}}
+</style>
+</head>
+<body>
+<main>
+<a class="volver" href="../">← Volver a Video Downloader</a>
+<header>
+  <img src="icono.png" alt="" width="72" height="72">
+  <div>
+    <h1>Video Downloader</h1>
+    <p class="muted">Versión 1.0.0 · Creado por Marco Yam · Powered by Claude</p>
+  </div>
+</header>
+
+<h2>Acceso directo para iPhone</h2>
+
+<article class="card">
+  <h3>Video Downloader · acceso directo</h3>
+  <p class="muted">Acceso directo a la página de Video Downloader, donde están la app para Android (APK) y para iPhone (IPA) y las instrucciones para instalarlas.</p>
+  <ul class="chips" aria-label="Detalles del perfil">
+    <li>Versión 1</li>
+    <li>Creado el 2026-10-23</li>
+    <li>13.9 KB</li>
+    <li class="warn">Sin firmar: iOS lo mostrará como «No verificado»</li>
+  </ul>
+  <p><a class="btn" href="video-downloader-acceso.mobileconfig" download>Descargar perfil</a></p>
+  <p class="muted">Ábrelo en <strong>Safari</strong> en tu iPhone. Abre: https://markoyam.github.io/myam_media_player/.</p>
+</article>
+
+<h2>Qué hace el perfil</h2>
+<div class="card">
+  <ul>
+    <li><strong>Configura:</strong> un ícono en tu pantalla de inicio que abre esta página.</li>
+    <li><strong>Permisos:</strong> ninguno. No lee datos del iPhone ni pide tu información. No instala certificados,
+      VPN, proxies, perfiles de administración (MDM) ni restricciones.</li>
+    <li><strong>No instala la app.</strong> Las apps de iPhone necesitan una firma válida de Apple, y esa firma caduca
+      (ver abajo). El perfil solo te trae a esta página.</li>
+    <li><strong>Duración:</strong> No tiene fecha de eliminación automática: queda instalado hasta que lo quites. Eso no lo hace permanente: puedes quitarlo cuando quieras y futuras versiones de iOS podrían cambiar cómo funciona.</li>
+  </ul>
+</div>
+
+<h2>Cómo instalarlo</h2>
+<div class="card">
+  <ol>
+    <li>Abre esta página en <strong>Safari</strong> en tu iPhone y toca <strong>Descargar perfil</strong>.</li>
+    <li>Si Safari pregunta, toca <strong>Permitir</strong> y luego <strong>Cerrar</strong>.</li>
+    <li>Abre <strong>Ajustes</strong>: arriba aparece <strong>Perfil descargado</strong>. Tócalo.</li>
+    <li>Revisa lo que hace y toca <strong>Instalar</strong> (arriba a la derecha). iOS pedirá tu código.</li>
+    <li>Hazlo antes de 8 minutos: si no, iOS borra el perfil descargado y hay que bajarlo otra vez.</li>
+  </ol>
+  <p class="muted">Si tienes activada la <em>Protección en caso de robo</em> y no estás en un lugar habitual, iOS puede
+    pedirte esperar o desactivarla un momento para instalar perfiles.</p>
+</div>
+
+<h2>Cómo quitarlo</h2>
+<div class="card">
+  <p>Ajustes → General → VPN y gestión de dispositivos → <strong>Video Downloader · acceso directo</strong> → <strong>Eliminar perfil</strong>.
+    El ícono de la pantalla de inicio desaparece con él.</p>
+</div>
+
+<h2>La app en iPhone</h2>
+<div class="card">
+  <p>Apple solo deja instalar apps firmadas, y toda firma caduca. Con lo que permite hoy:</p>
+  <ul>
+    <li><strong>Desde Xcode con una cuenta gratuita:</strong> en tu propio iPhone; dura 7 días y luego hay que volver a
+      instalarla desde la Mac.</li>
+    <li><strong>AltStore o SideStore:</strong> cada persona la firma con su Apple ID gratuito; dura 7 días y se renueva desde
+      esa app.</li>
+    <li><strong>Ad Hoc (Apple Developer Program, 99 USD al año):</strong> hasta 100 iPhones registrados por su UDID; el
+      perfil de aprovisionamiento dura hasta un año.</li>
+    <li><strong>TestFlight (misma membresía):</strong> versiones de prueba que caducan a los 90 días.</li>
+  </ul>
+  <p class="muted">Instalar apps directamente desde una página web solo existe en la Unión Europea; no está disponible en
+    México.</p>
+  <p><a href="../#descargar">Ir a la descarga de la app (APK para Android, IPA para AltStore / SideStore)</a></p>
+</div>
+
+<h2>Estado de lo publicado</h2>
+<div class="card tabla">
+  <table>
+    <thead><tr><th>Archivo</th><th>Versión</th><th>Creado</th><th>Tamaño</th><th>Firmado</th><th>Duración</th><th>SHA-256</th></tr></thead>
+    <tbody><tr><td><code class="nowrap">video-downloader-acceso.mobileconfig</code></td><td>1</td><td class="nowrap">2026-10-23</td><td class="nowrap">13.9 KB</td><td>No</td><td>No tiene fecha de eliminación automática: queda instalado hasta que lo quites. Eso no lo hace permanente: puedes quitarlo cuando quieras y futuras versiones de iOS podrían cambiar cómo funciona.</td><td><code title="214f24b3549b9ccb3b60428e87f3ba06f485bd280d52540cc4ed777a6ccd396e">214f24b3549b9ccb…</code></td></tr></tbody>
+  </table>
+  <p class="muted">Generado el 2026-10-23 15:57 UTC para Video Downloader 1.0.0+1.
+    SHA-256 completo y demás datos en <a href="perfiles.json">perfiles.json</a>.</p>
+</div>
+
+<footer>Uso personal. Video Downloader · Creado por Marco Yam · Powered by Claude</footer>
+</main>
+</body>
+</html>

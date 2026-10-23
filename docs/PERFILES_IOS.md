@@ -1,12 +1,12 @@
 # Perfiles de configuración iOS (`.mobileconfig`) para Video Downloader
 
 Herramienta para **generar, validar, publicar y revisar** perfiles de configuración desde tu sitio con HTTPS
-(`https://markoyam.github.io/video-downloader/`). Vive en `tool/perfiles_ios/`, junto a
+(`https://markoyam.github.io/myam_media_player/`). Vive en `tool/perfiles_ios/`, junto a
 `configurar_plataformas.py`, y usa solo Python y `openssl`, que ya vienen en macOS: no instala nada ni usa servicios
 de pago.
 
 > **Lo que un perfil hace y lo que no.** El perfil de ejemplo agrega a la pantalla de inicio un **acceso directo**
-> (Web Clip) a la página de descargas. **No instala la app**: un perfil de configuración no puede instalar ni firmar un
+> (Web Clip) a la página de descargas (`docs/index.html`). **No instala la app**: un perfil de configuración no puede instalar ni firmar un
 > `.ipa`. La app de iPhone siempre necesita una firma válida de Apple, que caduca
 > (ver [CADUCIDAD_Y_DISTRIBUCION.md](CADUCIDAD_Y_DISTRIBUCION.md)).
 
@@ -23,7 +23,8 @@ de pago.
 | `tool/perfiles_ios/verificar.py` | Revisa el sitio ya publicado por HTTPS |
 | `tool/perfiles_ios/config/video_downloader_acceso.json` | Perfil de ejemplo (no sensible) |
 | `tool/perfiles_ios/config/icono-webclip.png` | Ícono de la app reducido a 400×400 |
-| `tool/perfiles_ios/tests/` | 55 pruebas automatizadas |
+| `tool/perfiles_ios/tests/` | 57 pruebas automatizadas |
+| `docs/perfiles/` | La página del perfil ya generada (la publica GitHub Pages) |
 
 ## Uso en macOS
 
@@ -31,8 +32,8 @@ Desde la carpeta del proyecto (`video_downloader_flutter`):
 
 ```bash
 python3 tool/perfiles_ios proyecto      # qué leyó del proyecto y avisos
-python3 tool/perfiles_ios publicar      # genera el sitio en build/perfiles_ios/sitio/
-python3 tool/perfiles_ios validar build/perfiles_ios/sitio/*.mobileconfig
+python3 tool/perfiles_ios publicar      # genera la página en docs/perfiles/
+python3 tool/perfiles_ios validar docs/perfiles/*.mobileconfig
 python3 -m unittest discover -s tool/perfiles_ios/tests -t tool/perfiles_ios/tests   # pruebas
 ```
 
@@ -42,7 +43,7 @@ ilimitada, instalar apps).
 En macOS también puedes revisar un perfil con las herramientas del sistema:
 
 ```bash
-plutil -lint build/perfiles_ios/sitio/video-downloader-acceso.mobileconfig
+plutil -lint docs/perfiles/video-downloader-acceso.mobileconfig
 ```
 
 ### Crear o cambiar un perfil
@@ -52,7 +53,7 @@ Copia `config/video_downloader_acceso.json` y edítalo:
 | Campo | Qué es |
 |---|---|
 | `archivo` | Nombre del `.mobileconfig` (sin espacios) |
-| `identificador` | DNS inverso único, p. ej. `io.github.markoyam.videodownloader.acceso`. **No lo cambies** entre versiones: iOS lo usa para reemplazar el perfil anterior |
+| `identificador` | DNS inverso único, p. ej. `io.github.markoyam.myammediaplayer.acceso`. **No lo cambies** entre versiones: iOS lo usa para reemplazar el perfil anterior |
 | `version` | Súbela (2, 3…) en cada cambio: cambia los UUID y queda registrada en `perfiles.json` |
 | `nombre`, `organizacion`, `descripcion` | Lo que verá la persona antes de instalar |
 | `fecha_creacion` | `AAAA-MM-DD`; se muestra en la descripción y en la página |
@@ -78,19 +79,23 @@ configura, qué permisos pide (ninguno), que no instala la app y cómo quitarlo.
 
 ### GitHub Pages (tu sitio actual)
 
-1. Genera el sitio: `python3 tool/perfiles_ios publicar`.
-2. Cópialo a tu repositorio del sitio:
+Este repositorio (`markoYam/myam_media_player`) publica su carpeta `docs/` en
+`https://markoyam.github.io/myam_media_player/`. `publicar` escribe la página del perfil en `docs/perfiles/`, y tu
+página principal (`docs/index.html`) la enlaza desde la tarjeta de iPhone ("Acceso directo en tu pantalla de inicio").
+
+1. Genera: `python3 tool/perfiles_ios publicar`.
+2. Sube los cambios:
 
    ```bash
-   mkdir -p ../github_page_marco/video-downloader
-   cp build/perfiles_ios/sitio/* ../github_page_marco/video-downloader/
-   cd ../github_page_marco && git add video-downloader && git commit -m "Video Downloader: perfil de acceso directo" && git push
+   git add docs/perfiles docs/index.html
+   git commit -m "Perfil de acceso directo"
+   git push
    ```
 
-3. Espera a que GitHub Pages publique (1 o 2 minutos) y revisa:
+3. Espera a que GitHub Pages publique (1 o 2 minutos, pestaña *Actions*) y revisa:
 
    ```bash
-   python3 tool/perfiles_ios verificar https://markoyam.github.io/video-downloader/
+   python3 tool/perfiles_ios verificar https://markoyam.github.io/myam_media_player/perfiles/
    ```
 
    `verificar` comprueba que todo llegue por HTTPS, que cada archivo coincida con `perfiles.json` (SHA-256), que el
@@ -104,7 +109,7 @@ abajo.
 ### Cloudflare Pages o Netlify (gratis, con tipo correcto)
 
 La carpeta generada trae `_headers`, que estos servicios leen para entregar el `.mobileconfig` con el tipo correcto.
-Sube la carpeta `build/perfiles_ios/sitio/` como sitio estático (en Cloudflare Pages: *Create → Pages → Upload assets*).
+Sube la carpeta `docs/` como sitio estático (en Cloudflare Pages: *Create → Pages → Upload assets*).
 Los dos dan HTTPS gratis. Después corre `verificar` con la URL nueva.
 
 ### Servidor propio (nginx o Apache)
@@ -149,6 +154,7 @@ python3 tool/perfiles_ios publicar --certificado ~/certs/firma.pem --clave ~/cer
 |---|---|---|
 | Safari muestra el XML como texto | El servidor lo entrega como `text/plain` o `text/xml` | Usa un hosting que lea `_headers` o configura el tipo; `verificar` lo detecta |
 | Safari lo baja a Archivos y Ajustes no muestra "Perfil descargado" | Tipo `application/octet-stream` (GitHub Pages) | Cloudflare Pages o Netlify con `_headers` |
+| `verificar` no encuentra `perfiles.json` | No se subió `docs/perfiles/` o GitHub Pages aún no termina | `git status`, haz push y espera a *Actions* |
 | "Perfil descargado" desapareció | Pasaron más de 8 minutos o bajaste otro perfil | Descárgalo de nuevo e instálalo enseguida |
 | "El perfil no es válido" / "No se pudo instalar" | Archivo dañado, viejo en caché o editado a mano | `python3 tool/perfiles_ios verificar URL` y vuelve a publicar |
 | El ícono sale en blanco | Falta `Icon` o no es PNG | La validación lo impide; usa `icono-webclip.png` |
@@ -171,6 +177,6 @@ Cubren:
   `text/plain`, archivo cambiado, archivo que falta y certificado no confiable.
 
 **Pendiente:** probarlo en un iPhone real. Desde aquí no hay dispositivo. Para hacerlo:
-1. Publica.
+1. Publica (`git push`).
 2. Corre `verificar`.
 3. En el iPhone, instala, comprueba el ícono en la pantalla de inicio y quita el perfil.

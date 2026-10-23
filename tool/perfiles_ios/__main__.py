@@ -5,12 +5,12 @@ Uso (desde la carpeta del proyecto):
     python3 tool/perfiles_ios proyecto                 # datos leídos del proyecto y avisos
     python3 tool/perfiles_ios generar                  # genera los .mobileconfig de config/*.json en build/perfiles_ios/
     python3 tool/perfiles_ios validar ARCHIVO...       # valida perfiles (también firmados)
-    python3 tool/perfiles_ios publicar [--destino DIR] # genera el sitio de descarga (index.html, perfiles, estado)
+    python3 tool/perfiles_ios publicar [--destino DIR] # genera la página del perfil en docs/perfiles/ (GitHub Pages)
          [--certificado C --clave K [--cadena X]]      #   firmando los perfiles, si das certificado y clave
     python3 tool/perfiles_ios verificar URL            # revisa el sitio ya publicado por HTTPS
 
-El sitio va por defecto a build/perfiles_ios/sitio/; cópialo a tu sitio, p. ej.
-../github_page_marco/video-downloader/ (se publica en https://markoyam.github.io/video-downloader/).
+La página va por defecto a docs/perfiles/: GitHub Pages publica la carpeta docs/ de este repositorio en
+https://markoyam.github.io/myam_media_player/, así que queda en .../myam_media_player/perfiles/ al hacer push.
 """
 
 from __future__ import annotations
@@ -98,7 +98,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     pub = sub.add_parser("publicar", help="genera el sitio de descarga")
     pub.add_argument("configs", nargs="*")
-    pub.add_argument("--destino", type=Path, default=SALIDA / "sitio")
+    pub.add_argument("--destino", type=Path, default=RAIZ_PROYECTO / "docs" / "perfiles")
     for nombre in ("--certificado", "--clave", "--cadena"):
         pub.add_argument(nombre, type=Path)
 
@@ -144,7 +144,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         publicados = _construir(a.configs, a.certificado, a.clave, a.cadena)
         icono = (CARPETA_CONFIG / "icono-webclip.png").read_bytes()
         escritos = escribir_sitio(publicados, leer_proyecto(), a.destino, icono, dt.datetime.now(dt.timezone.utc).replace(tzinfo=None))
-        print(f"Sitio listo en {a.destino} ({len(escritos)} archivos). Cópialo a tu sitio HTTPS.")
+        print(f"Listo en {a.destino} ({len(escritos)} archivos). Súbelo con git (commit + push) y revisa con:")
+        print("  python3 tool/perfiles_ios verificar https://markoyam.github.io/myam_media_player/perfiles/")
         return 0
 
     if a.comando == "verificar":

@@ -9,7 +9,7 @@ from pathlib import Path
 from apoyo import CONFIG_EJEMPLO, carpeta_temporal
 
 from perfil import cargar_config, construir_perfil
-from proyecto import bundle_id_de_runner, leer_proyecto
+from proyecto import _avisos_de_ids, bundle_id_de_runner, leer_proyecto
 
 
 def _escribir(carpeta: Path, datos) -> Path:
@@ -115,10 +115,8 @@ class ProyectoTest(unittest.TestCase):
 
     def test_avisa_del_prefijo_com_example(self):
         p = leer_proyecto()
-        if p.bundle_id and p.bundle_id.startswith("com.example."):
-            self.assertTrue(any("com.example" in a for a in p.avisos))
-        else:
-            self.assertFalse(any("com.example" in a for a in p.avisos))
+        prefijo = [a for a in p.avisos if "prefijo 'com.example'" in a]
+        self.assertEqual(bool(prefijo), bool(p.bundle_id and p.bundle_id.startswith("com.example.")))
 
     def test_bundle_id_de_runner_ignora_tests_y_extension(self):
         pbx = (
@@ -130,6 +128,46 @@ class ProyectoTest(unittest.TestCase):
         )
         self.assertEqual(bundle_id_de_runner(pbx), "com.marcoyam.app")
         self.assertIsNone(bundle_id_de_runner(""))
+
+    def test_avisa_si_la_extension_o_el_manifiesto_no_coinciden(self):
+        import plistlib
+        import zipfile
+
+        pbx = (
+            "\t\tA = {\n\t\t\tbuildSettings = {\n\t\t\t\tINFOPLIST_FILE = Runner/Info.plist;\n"
+            "\t\t\t\tPRODUCT_BUNDLE_IDENTIFIER = com.marcoyam.videoDownloader;\n\t\t\t};\n"
+            "\t\tB = {\n\t\t\tbuildSettings = {\n\t\t\t\tINFOPLIST_FILE = ShareExtension/Info.plist;\n"
+            "\t\t\t\tPRODUCT_BUNDLE_IDENTIFIER = com.example.videoDownloader.ShareExtension;\n\t\t\t};\n"
+        )
+        with carpeta_temporal() as tmp:
+            raiz = Path(tmp)
+            (raiz / "docs/releases/ios").mkdir(parents=True)
+            manifiesto = {"items": [{"metadata": {"bundle-identifier": "com.example.videoDownloader"}}]}
+            (raiz / "docs/releases/ios/manifest.plist").write_bytes(plistlib.dumps(manifiesto))
+            with zipfile.ZipFile(raiz / "docs/releases/ios/video-downloader.ipa", "w") as z:
+                z.writestr("Payload/Runner.app/Info.plist", plistlib.dumps({"CFBundleIdentifier": "com.example.videoDownloader"}))
+            avisos = _avisos_de_ids(raiz, pbx, "com.marcoyam.videoDownloader")
+            self.assertTrue(any("extensión de Compartir" in a for a in avisos), avisos)
+            self.assertTrue(any("manifest.plist dice com.example" in a for a in avisos), avisos)
+            self.assertTrue(any("se compiló con com.example" in a for a in avisos), avisos)
+            self.assertTrue(any("sin firmar" in a for a in avisos), avisos)
+
+            # Todo coherente y firmado: sin avisos.
+            bien = pbx.replace("com.example.videoDownloader.ShareExtension", "com.marcoyam.videoDownloader.ShareExtension")
+            manifiesto["items"][0]["metadata"]["bundle-identifier"] = "com.marcoyam.videoDownloader"
+            (raiz / "docs/releases/ios/manifest.plist").write_bytes(plistlib.dumps(manifiesto))
+            with zipfile.ZipFile(raiz / "docs/releases/ios/video-downloader.ipa", "w") as z:
+                z.writestr("Payload/Runner.app/Info.plist", plistlib.dumps({"CFBundleIdentifier": "com.marcoyam.videoDownloader"}))
+                z.writestr("Payload/Runner.app/_CodeSignature/CodeResources", b"x")
+                z.writestr("Payload/Runner.app/embedded.mobileprovision", b"x")
+            self.assertEqual(_avisos_de_ids(raiz, bien, "com.marcoyam.videoDownloader"), [])
+
+            (raiz / "docs/releases/ios/video-downloader.ipa").write_bytes(b"no es zip")
+            self.assertTrue(any("dañado" in a for a in _avisos_de_ids(raiz, bien, "com.marcoyam.videoDownloader")))
+
+    def test_el_ejemplo_apunta_al_sitio_real(self):
+        cfg, _ = cargar_config(CONFIG_EJEMPLO)
+        self.assertEqual(cfg.payloads[0]["url"], "https://markoyam.github.io/myam_media_player/")
 
     def test_el_perfil_usa_el_nombre_del_proyecto(self):
         cfg, _ = cargar_config(CONFIG_EJEMPLO)

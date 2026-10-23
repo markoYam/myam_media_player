@@ -1,16 +1,18 @@
 {
   "archivo": "video-downloader-acceso.mobileconfig",
-  "identificador": "io.github.markoyam.videodownloader.acceso",
+  "identificador": "io.github.markoyam.myammediaplayer.acceso",
   "version": 1,
   "nombre": "Video Downloader · acceso directo",
   "organizacion": "Marco Yam",
-  "descripcion": "Acceso directo a la página de Video Downloader, donde están las versiones para Android y iPhone y las instrucciones para instalarlas.",
+  "descripcion": "Acceso directo a la página de Video Downloader, donde están la app para Android (APK) y para iPhone (IPA) y las instrucciones para instalarlas.",
   "fecha_creacion": "2026-10-23",
-  "caducidad": {"tipo": "ninguna"},
+  "caducidad": {
+    "tipo": "ninguna"
+  },
   "payloads": [
     {
       "tipo": "webclip",
-      "url": "https://markoyam.github.io/video-downloader/",
+      "url": "https://markoyam.github.io/myam_media_player/",
       "etiqueta": "Video Downloader",
       "icono": "icono-webclip.png",
       "pantalla_completa": true

@@ -1,0 +1,5 @@
+# Cloudflare Pages / Netlify: tipo correcto para que Safari ofrezca instalar el perfil.
+# (GitHub Pages ignora este archivo; usa `verificar` para ver qué tipo entrega.)
+/*.mobileconfig
+  Content-Type: application/x-apple-aspen-config
+  X-Content-Type-Options: nosniff

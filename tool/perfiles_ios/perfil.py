@@ -4,7 +4,7 @@ Formato del JSON (ver config/video_downloader_acceso.json):
 
     {
       "archivo": "video-downloader-acceso.mobileconfig",
-      "identificador": "io.github.markoyam.videodownloader.acceso",
+      "identificador": "io.github.markoyam.myammediaplayer.acceso",
       "version": 1,
       "nombre": "Video Downloader · acceso directo",
       "organizacion": "Marco Yam",
@@ -13,7 +13,7 @@ Formato del JSON (ver config/video_downloader_acceso.json):
       "caducidad": {"tipo": "ninguna"}            // o {"tipo": "fecha", "fecha": "2027-10-23T00:00:00Z"}
                                                   // o {"tipo": "duracion", "dias": 365}
       "payloads": [
-        {"tipo": "webclip", "url": "https://markoyam.github.io/video-downloader/",
+        {"tipo": "webclip", "url": "https://markoyam.github.io/myam_media_player/",
          "etiqueta": "Video Downloader", "icono": "icono-webclip.png", "pantalla_completa": true}
       ]
     }
@@ -88,7 +88,7 @@ def cargar_config(ruta: Path) -> Tuple[Optional[ConfigPerfil], List[str]]:
     if "archivo" in datos and (not isinstance(archivo, str) or not re.fullmatch(r"[A-Za-z0-9._-]+\.mobileconfig", archivo)):
         errores.append("'archivo' debe ser un nombre simple que termine en .mobileconfig (sin carpetas ni espacios).")
     if "identificador" in datos and not es_reverso_dns(datos.get("identificador")):
-        errores.append("'identificador' debe ser estilo DNS inverso (p. ej. io.github.markoyam.videodownloader.acceso).")
+        errores.append("'identificador' debe ser estilo DNS inverso (p. ej. io.github.markoyam.myammediaplayer.acceso).")
     version = datos.get("version")
     if "version" in datos and (not isinstance(version, int) or isinstance(version, bool) or version < 1):
         errores.append("'version' debe ser un entero de 1 en adelante.")

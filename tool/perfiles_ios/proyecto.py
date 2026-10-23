@@ -56,6 +56,70 @@ def bundle_id_de_runner(pbxproj: str) -> Optional[str]:
     return sorted(ids)[0] if ids else None
 
 
+def bundle_ids_por_plist(pbxproj: str) -> dict:
+    """INFOPLIST_FILE → bundle ids que usa (para revisar la extensión y las pruebas)."""
+    out: dict = {}
+    for bloque in re.findall(r"buildSettings = \{(.*?)\n\t\t\t\};", pbxproj, re.DOTALL):
+        plist = re.search(r"INFOPLIST_FILE = \"?([^\";]+)\"?;", bloque)
+        bid = re.search(r"PRODUCT_BUNDLE_IDENTIFIER = \"?([^\";]+)\"?;", bloque)
+        if plist and bid:
+            out.setdefault(plist.group(1).strip(), set()).add(bid.group(1).strip())
+    return out
+
+
+def _avisos_de_ids(raiz: Path, pbxproj: str, bundle_id: str) -> List[str]:
+    """Ids que deben coincidir con el de la app: la extensión de Compartir y el manifiesto Ad Hoc."""
+    avisos = []
+    for plist, ids in bundle_ids_por_plist(pbxproj).items():
+        if plist.startswith("ShareExtension"):
+            for bid in sorted(ids):
+                if not bid.startswith(bundle_id + "."):
+                    avisos.append(f"La extensión de Compartir usa {bid}, pero debe empezar con {bundle_id}. "
+                                  f"(p. ej. {bundle_id}.ShareExtension); si no, Xcode no la incluye en la app.")
+    manifiesto = raiz / "docs/releases/ios/manifest.plist"
+    if manifiesto.exists():
+        try:
+            items = plistlib.loads(manifiesto.read_bytes()).get("items", [])
+            ids = {i.get("metadata", {}).get("bundle-identifier") for i in items}
+        except Exception:  # noqa: BLE001
+            ids = set()
+            avisos.append("docs/releases/ios/manifest.plist no se pudo leer.")
+        for bid in sorted(i for i in ids if i):
+            if bid != bundle_id:
+                avisos.append(f"docs/releases/ios/manifest.plist dice {bid} y la app es {bundle_id}: la instalación "
+                              "desde Safari fallaría.")
+    avisos.extend(_avisos_de_ipa(raiz / "docs/releases/ios/video-downloader.ipa", bundle_id))
+    return avisos
+
+
+def _avisos_de_ipa(ipa: Path, bundle_id: str) -> List[str]:
+    """El .ipa publicado: ¿mismo bundle id? ¿firmado? (sin firma solo sirve con AltStore/SideStore)."""
+    if not ipa.exists():
+        return []
+    import zipfile
+
+    try:
+        with zipfile.ZipFile(ipa) as z:
+            nombres = z.namelist()
+            info = next((n for n in nombres if re.fullmatch(r"Payload/[^/]+\.app/Info\.plist", n)), None)
+            if info is None:
+                return [f"{ipa.name} no tiene Payload/*.app/Info.plist: no es un .ipa válido."]
+            datos = plistlib.loads(z.read(info))
+            app = info.rsplit("/", 1)[0]
+            firmado = any(n.startswith(app + "/_CodeSignature/") for n in nombres)
+            aprovisionado = (app + "/embedded.mobileprovision") in nombres
+    except (zipfile.BadZipFile, OSError, ValueError):
+        return [f"{ipa.name} está dañado (no es un zip válido)."]
+    avisos = []
+    if datos.get("CFBundleIdentifier") != bundle_id:
+        avisos.append(f"docs/releases/ios/{ipa.name} se compiló con {datos.get('CFBundleIdentifier')} y la app ya es "
+                      f"{bundle_id}: vuelve a compilarlo y súbelo.")
+    if not (firmado and aprovisionado):
+        avisos.append(f"docs/releases/ios/{ipa.name} está sin firmar: sirve para AltStore/SideStore, pero el botón "
+                      "\"Instalar en iPhone\" (itms-services) no puede instalarlo; eso requiere un .ipa Ad Hoc firmado.")
+    return avisos
+
+
 def leer_proyecto(raiz: Path = RAIZ_PROYECTO) -> Proyecto:
     avisos: List[str] = []
     pubspec_path = raiz / "pubspec.yaml"
@@ -77,8 +141,9 @@ def leer_proyecto(raiz: Path = RAIZ_PROYECTO) -> Proyecto:
 
     bundle_id = None
     pbx = raiz / "ios/Runner.xcodeproj/project.pbxproj"
-    if pbx.exists():
-        bundle_id = bundle_id_de_runner(pbx.read_text(encoding="utf-8", errors="replace"))
+    texto_pbx = pbx.read_text(encoding="utf-8", errors="replace") if pbx.exists() else ""
+    if texto_pbx:
+        bundle_id = bundle_id_de_runner(texto_pbx)
     if bundle_id is None:
         avisos.append("No encontré el bundle id de Runner en project.pbxproj.")
     elif bundle_id.startswith("com.example."):
@@ -88,6 +153,9 @@ def leer_proyecto(raiz: Path = RAIZ_PROYECTO) -> Proyecto:
             "Bundle Identifier), por ejemplo a com.marcoyam.videoDownloader, y el de ShareExtension a "
             "com.marcoyam.videoDownloader.ShareExtension."
         )
+
+    if bundle_id and texto_pbx:
+        avisos.extend(_avisos_de_ids(raiz, texto_pbx, bundle_id))
 
     icono = raiz / ICONO_APP
     return Proyecto(

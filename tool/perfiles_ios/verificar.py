@@ -32,7 +32,7 @@ def descargar(url: str, cafile: Optional[Path] = None, timeout: float = 20) -> T
 
 
 def verificar_sitio(base: str, cafile: Optional[Path] = None) -> Tuple[bool, List[str]]:
-    """(todo bien, informe). [base] es la carpeta publicada, p. ej. https://markoyam.github.io/video-downloader/."""
+    """(todo bien, informe). [base] es la carpeta publicada, p. ej. https://markoyam.github.io/myam_media_player/perfiles/."""
     base = base if base.endswith("/") else base + "/"
     informe: List[str] = []
     ok = True

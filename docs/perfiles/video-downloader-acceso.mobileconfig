@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ConsentText</key>
+	<dict>
+		<key>default</key>
+		<string>Agrega a tu pantalla de inicio un acceso directo a https://markoyam.github.io/myam_media_player/.
+
+No pide permisos ni lee datos del iPhone. No instala certificados, VPN, proxies, perfiles de administración (MDM) ni restricciones.
+
+Este perfil no instala la app Video Downloader: solo abre su página de descargas. Las apps de iPhone necesitan una firma válida de Apple, que caduca (7 días con una cuenta gratuita).
+
+Para quitarlo: Ajustes → General → VPN y gestión de dispositivos → Video Downloader · acceso directo → Eliminar perfil.</string>
+		<key>es</key>
+		<string>Agrega a tu pantalla de inicio un acceso directo a https://markoyam.github.io/myam_media_player/.
+
+No pide permisos ni lee datos del iPhone. No instala certificados, VPN, proxies, perfiles de administración (MDM) ni restricciones.
+
+Este perfil no instala la app Video Downloader: solo abre su página de descargas. Las apps de iPhone necesitan una firma válida de Apple, que caduca (7 días con una cuenta gratuita).
+
+Para quitarlo: Ajustes → General → VPN y gestión de dispositivos → Video Downloader · acceso directo → Eliminar perfil.</string>
+	</dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>FullScreen</key>
+			<true/>
+			<key>Icon</key>
+			<data>
+			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
+			P0VYGctZ93O3siXtp9UNhoUTc0t9JnhPgoYzeHXnJ0j7qRNw6L7C
+			n/+ldLLa0H5ayVbl6il7uDK2avz11zqy60D7KQkrwznrXp2slrSf
+			ekaul2XHmeLJ2ZW3lbiz60D7KQmLnHXHXQd3t0OXh+W7DmwwkLDI
+			WXc8g7dtO/Rh20rsPoOn/ZSEBc05q9rJ2hOIiD03HcuO1xZWwVY2
+			5yyyFcKCReyQ3gf/yxvqG+kPZXJztL7Np+yy48cLJ+eSgUjKq/iT
+			t+r7hjR0ISy4s7OKOvbfpSsl3fnb4YYer43Z6lpJ/vrMwslL8WD0
+			oPtW7jqrMgnW7rdi3wphQYspLszrrVjafcq+2pOghbMh2QphwT3Q
+			6qdC2/HxqG2Hbj/TetNxG95tIuVqzirrar8aNHQhLFiqs6R9tqps
+			MNz57tAs5KyW9lMhW7kJaw2rlCzal62q91vZYSup3VM6v3rfkW7J
+			VtiKhAV2Ub+XfQk3HXd2zqpsMKwL0nvZsRUJC2y0VXU7NLHQVrJa
+			O6W0nyIscMFWze2ndvKwv29I+ynCAicmwUXaT7PmLNpPOxLOsDpw
+			Etz+4+LJSxadst+TFd8pZTuUhAVOZKt7tJ9anrNW5Lkh7acIC5zI
+			VktqP7WTlepkpf2UkRDcyFarc2OMzbMh7ackLHAiW913+6nls+Ey
+			zuBpP0VY4Ea22v7j4on0puPE+X+o5Z1nVe+34twKYYED2SoZjNzO
+			Vrc7a+k7pbSfIixwwVYr0X7qes6i/RRhgROT4Iq1n7qbs2g/RVjg
+			xCS4wu2ndnL3TlbaTzMIaw0OZquH1n5q7T/17Z2stJ+SsMABWz3U
+			9lObZ8PGnEX7KQkLrCa9bKAztkOXR6zySJd5NG/iRK+VK/tWZCuE
+			BTbaSkQuF/Vvf1L8j5l4MNeZp+xLcdajeRnqy39qsPyFJ0K+1cxI
+			CFYKS8WIfPF86fCv45G8KSUZfRVCT96d94J33/zCE2Giyik7wgIr
+			Y7CIqvzNR8NPDnmXFyTM5MdURUwuf/P0sRf/8SvjL/y7Z0yiCdMB
+			wgL7hGVEjWzoMV/7RG5TwVwpaZCtn5uqqp/vmnn10MVXjunAh577
+			xn9OfOuU73lJwpEGwgIrf07pTQbf2JLbVPCuFCXITs5SCfJdsz86
+			NPPqMdM3IlFXuKYwvee/xve95nsGZSEssBHfNDrLXClpFpxVy1YV
+			W4V59cPYC4JC93N7Tk3se933DDkLYYH9zvKulDo7Z6moBvmumVe/
+			X7FVkBc/FC9U8RLxgr789N6qs1AWwgIXnNWxOUtVvNRWPzpmCiMS
+			5MQPxQvEeGI8FUlEgt789N7T9ZzF+wNhgYXOSlQeyZvnt0SdmbO0
+			kq1mX/3+zKtHTd+IBDkJIvFDMb4YT4yIGFVJRIO+3PTe0xP7X/c9
+			E+MshAU2/thM5Rt2nZqz/MokeLSaraJatkptVTNbohr05qb3nBrf
+			93pAzkJYYK2z4nrO8jvEWaqq6nd1zbxycOaVI6ZvuDIJ+kFjtkr/
+			1rqzRIPe/HPV2ZCchbDA0tkwruSszpgNVVX8fNfM8QMzrxwxhfSU
+			PRJ/kWzVMkEmomFvbnovOQthgfXOatp1cPVHqqrid3XNHj8w80p1
+			EgzSU3b/LraqOSuu5Cx2HRAWOOMsR3dKtbIdevx7M68cNoVhCXLi
+			LdVWTTmrLz+999T4fnYdEBa44izHzrPSbNU988OXZo5XbVU7t/JM
+			q630bs6KVYPePDulCAvccJZjuw6aZqvumWPfmTn+ct1Wni/GF5Pe
+			yGDuYCm9U84KevPTe0+luw6cZyEssNRZDbsO5krZ/pylIuLlu2aO
+			vVixlV/bDq3ZajkOrDhrz+mJfa/7Ps5CWGDnj7O+U5rb1Gd3zlIV
+			FT/fPXv0xZnjP6hvMDSeWxmz7F87EQ16I3ZKERY44Ky1tn/fUFXE
+			6+qeObp/5vgh0zcsYU68sLrBYBY7Zdf7/Q0SEXZKERY44KyG8yz7
+			ZkOtnLLPHt43c+ygKQxLEIkXLLJvdSfD6BJ/n4adUnIWwgJradgp
+			tW02VBHx892zL39r5tgBUxgRPxIvFBOI8ZqfBmrrf1nubBj25qb3
+			nB7fT85CWGC3syy7P0tVxevqnn35mzNHD3iF4cqXBL1APL8yDK70
+			Re3VndIcuw4ICxxyVrtzVm2D4dC/zBx9yRSG1c9VbeWJNJhKV/53
+			ruyUvsD9WQgLXHJWm3KWqoh4Xd0XD+2dPfJdrzAiQSSeX7XV7XVd
+			ujR16dJ//1g16MlP7z09zv1ZCAtsdlab789SFRG/q3vm4POzh180
+			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
+			rkJggg==
+			</data>
+			<key>IsRemovable</key>
+			<true/>
+			<key>Label</key>
+			<string>Video Downloader</string>
+			<key>PayloadDisplayName</key>
+			<string>Acceso directo: Video Downloader</string>
+			<key>PayloadIdentifier</key>
+			<string>io.github.markoyam.myammediaplayer.acceso.webclip</string>
+			<key>PayloadType</key>
+			<string>com.apple.webClip.managed</string>
+			<key>PayloadUUID</key>
+			<string>5D1AB31A-B6EE-55F5-8DF1-22E0FE6AF1D0</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>Precomposed</key>
+			<true/>
+			<key>URL</key>
+			<string>https://markoyam.github.io/myam_media_player/</string>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>Acceso directo a la página de Video Downloader, donde están la app para Android (APK) y para iPhone (IPA) y las instrucciones para instalarlas.
+
+Qué configura: Agrega a tu pantalla de inicio un acceso directo a https://markoyam.github.io/myam_media_player/.
+
+Permisos: No pide permisos ni lee datos del iPhone. No instala certificados, VPN, proxies, perfiles de administración (MDM) ni restricciones.
+
+Este perfil no instala la app Video Downloader: solo abre su página de descargas. Las apps de iPhone necesitan una firma válida de Apple, que caduca (7 días con una cuenta gratuita).
+
+Duración: No tiene fecha de eliminación automática: queda instalado hasta que lo quites. Eso no lo hace permanente: puedes quitarlo cuando quieras y futuras versiones de iOS podrían cambiar cómo funciona.
+
+Para quitarlo: Ajustes → General → VPN y gestión de dispositivos → Video Downloader · acceso directo → Eliminar perfil.
+
+Versión 1 · creado el 2026-10-23 · Marco Yam.</string>
+	<key>PayloadDisplayName</key>
+	<string>Video Downloader · acceso directo</string>
+	<key>PayloadIdentifier</key>
+	<string>io.github.markoyam.myammediaplayer.acceso</string>
+	<key>PayloadOrganization</key>
+	<string>Marco Yam</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>CC37A17C-08B2-5AD6-8CA9-C4574BAB2B83</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	<key>TargetDeviceType</key>
+	<integer>1</integer>
+</dict>
+</plist>

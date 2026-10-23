@@ -1,0 +1,25 @@
+{
+  "app": "Video Downloader",
+  "version_app": "1.0.0+1",
+  "bundle_id": "com.marcoyam.videoDownloader",
+  "generado": "2026-10-23T15:57:41Z",
+  "perfiles": [
+    {
+      "archivo": "video-downloader-acceso.mobileconfig",
+      "nombre": "Video Downloader · acceso directo",
+      "identificador": "io.github.markoyam.myammediaplayer.acceso",
+      "version": 1,
+      "fecha_creacion": "2026-10-23",
+      "bytes": 14189,
+      "sha256": "214f24b3549b9ccb3b60428e87f3ba06f485bd280d52540cc4ed777a6ccd396e",
+      "firmado": false,
+      "caducidad": "No tiene fecha de eliminación automática: queda instalado hasta que lo quites. Eso no lo hace permanente: puedes quitarlo cuando quieras y futuras versiones de iOS podrían cambiar cómo funciona.",
+      "payloads": [
+        "com.apple.webClip.managed"
+      ],
+      "destinos": [
+        "https://markoyam.github.io/myam_media_player/"
+      ]
+    }
+  ]
+}

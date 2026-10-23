@@ -1,4 +1,4 @@
-"""Genera la página estática de descarga (para markoYam.github.io/video-downloader/ u otro hosting HTTPS).
+"""Genera la página estática de descarga (docs/perfiles/ → markoyam.github.io/myam_media_player/perfiles/, u otro hosting HTTPS).
 
 Archivos que escribe en la carpeta destino:
 - index.html: perfiles, qué hacen, cómo instalarlos y quitarlos, la verdad sobre la app en iPhone y el
@@ -60,32 +60,36 @@ def estado(publicados: List[Publicado], proyecto: Proyecto, generado: dt.datetim
 
 
 _CSS = """
-:root{--bg:#0E0E12;--surface:#19191F;--surface-2:#212129;--text:#F2F1F6;--muted:#C9C7D1;--primary:#4F46E5;
---on-primary:#FFFFFF;--accent:#C0C1FF;--warn:#FFD479;--border:#2E2E38;--radius:12px}
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#FBF8FF;--surface:#FFFFFF;--surface-2:#F0EDF6;
---text:#1B1B21;--muted:#46464F;--primary:#4F46E5;--on-primary:#FFFFFF;--accent:#3B33C9;--warn:#7A5300;--border:#D9D6E0}}
+/* Mismos colores que la página principal (docs/index.html). */
+:root{--bg:#0F0A12;--surface:#1D1524;--surface-2:#17101C;--text:#F8F1F5;--muted:#B9AAC2;--primary:#E11D48;
+--on-primary:#FFFFFF;--accent:#7DB3FA;--warn:#FFD479;--border:#33283D;--radius:20px}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#FFF1F2;--surface:#FFFFFF;--surface-2:#FFE4E8;
+--text:#4C0519;--muted:#5B4A55;--primary:#E11D48;--on-primary:#FFFFFF;--accent:#1D4ED8;--warn:#7A4A00;--border:#FECDD3}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text",
-"Segoe UI",Roboto,sans-serif}
-main{max-width:760px;margin:0 auto;padding:24px 16px 48px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Poppins,-apple-system,BlinkMacSystemFont,"Segoe UI",
+Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px 16px 48px}
+.volver{display:inline-flex;align-items:center;min-height:44px;color:var(--muted);text-decoration:none;font-weight:600}
 header{display:flex;gap:16px;align-items:center;margin:8px 0 24px}
-header img{width:72px;height:72px;border-radius:16px;flex:none}
-h1{font-size:28px;line-height:1.15;margin:0;font-weight:800;letter-spacing:-.02em}
-h2{font-size:20px;margin:32px 0 12px;font-weight:800;letter-spacing:-.01em}
+header img{width:72px;height:72px;border-radius:18px;flex:none}
+h1{font-size:28px;line-height:1.15;margin:0;font-weight:800;letter-spacing:-.01em}
+h2{font-size:21px;margin:32px 0 12px;font-weight:800}
 h3{font-size:17px;margin:0 0 6px}
-p{margin:0 0 12px}
+p{margin:0 0 12px;overflow-wrap:anywhere}
 .muted{color:var(--muted)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin:0 0 12px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:0 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px;padding:0;list-style:none}
-.chips li{background:var(--surface-2);border-radius:999px;padding:4px 12px;font-size:14px;color:var(--muted)}
+.chips li{background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:4px 12px;font-size:14px;
+color:var(--muted)}
 .chips li.warn{color:var(--warn)}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;
-background:var(--primary);color:var(--on-primary);font-weight:700;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:999px;
+background:var(--primary);color:var(--on-primary);font-weight:700;text-decoration:none;
+box-shadow:0 10px 30px -12px var(--primary)}
 .btn:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 a{color:var(--accent)}
 ol,ul{padding-left:22px;margin:0 0 12px}
-li{margin:4px 0}
+li{margin:4px 0;overflow-wrap:anywhere}
 .tabla{width:100%;overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:14px;min-width:680px}
 th,td{text-align:left;padding:8px;border-bottom:1px solid var(--border);vertical-align:top}
@@ -146,6 +150,7 @@ def pagina(publicados: List[Publicado], proyecto: Proyecto, generado: dt.datetim
 </head>
 <body>
 <main>
+<a class="volver" href="../">← Volver a {nombre}</a>
 <header>
   <img src="icono.png" alt="" width="72" height="72">
   <div>
@@ -202,6 +207,7 @@ def pagina(publicados: List[Publicado], proyecto: Proyecto, generado: dt.datetim
   </ul>
   <p class="muted">Instalar apps directamente desde una página web solo existe en la Unión Europea; no está disponible en
     México.</p>
+  <p><a href="../#descargar">Ir a la descarga de la app (APK para Android, IPA para AltStore / SideStore)</a></p>
 </div>
 
 <h2>Estado de lo publicado</h2>
